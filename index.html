@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Chapter 45 Knock Out - Beautiful 3D Arena</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050508;color:#fff;font-family:Arial Black;overflow:hidden}
+#story{position:absolute;inset:0;z-index:99;background:linear-gradient(135deg,#050508,#1a0f08);overflow-y:auto;padding:20px}
+.gold{color:#ffca28;text-shadow:0 0 10px #ffca28}
+.hud{position:absolute;background:linear-gradient(135deg,rgba(20,10,0,0.95),rgba(40,20,0,0.9));border:2px solid #ffca28;border-radius:12px;padding:10px;pointer-events:all;font-family:monospace;box-shadow:0 0 20px rgba(255,202,40,0.4)}
+#hudL{top:10px;left:10px;width:380px}
+#hudR{top:10px;right:10px;width:420px}
+#hudB{bottom:10px;left:10px;width:500px;display:none;max-height:350px;overflow:auto}
+#hudMap{bottom:10px;right:10px;width:180px;height:180px;border-color:#ff1744}
+.bar{width:100%;height:20px;background:#000;border:2px solid #ffca28;border-radius:10px;margin:5px 0;overflow:hidden}
+.fill{height:100%;border-radius:8px;transition:width 0.4s}
+button{background:linear-gradient(135deg,#ff6f00,#ffca28);color:#000;border:none;padding:10px 16px;margin:4px;border-radius:8px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.5)}
+button:hover{transform:scale(1.05);box-shadow:0 0 15px #ffca28}
+#centerMsg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:32px;color:#ffca28;text-shadow:0 0 20px #ffca28;pointer-events:none;display:none;z-index:50}
+</style>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+</head>
+<body>
+<div id="story">
+<h1 style="text-align:center" class="gold">CHAPTER 45: KNOCK OUT<br>Escort Boxing to Professional Championship<br>1 Million Dollars Cheque</h1>
+<div style="max-width:900px;margin:20px auto;background:rgba(255,202,40,0.08);padding:20px;border:2px solid #ffca28;border-radius:12px;white-space:pre-wrap;font-family:Georgia,serif;line-height:1.7;font-size:13px">
+Once upon a time boxing ring championship. Training round competition only professional boxer wins. Whoever wins final round single player wins bunch gold prized cheque 1 Million Dollars last round. Fighting round is for instruction. Place name "Escort Boxing". If training good in Escort Boxing goes now in championship round final end boxing. Place called "Professional Boxing Competition" whoever wins Escort Boxing training goes here.
+
+First players Escort Boxing: Edward Geta and coach De Galio. De Galio teach Edward how to become professional boxer. De Galio: Edward Geta! Focus concentrate arm moves upper cut lower cut shield fist punches. When enemy moves you can hit by cornering him. Be humble no turning back ring. Be brave defeat enemy down. Edward understand practice. Edward: yes humble brave not pride fear. De Galio trains Edward master agility never fear hitting own body structures. Game over Edward careful hitting own body because skill enemy. De Galio: Not yet done easy boxing. You must learn stable surviving every 12 rounds. Because boxing final champion Professional Boxing Competition must face no fear good brave warrior great punches powerful moves. Edward did it. De Galio: I think you ready now face lucky destiny boxing. You try hard fulfilling agilities punch powers. Edward: Yes humble even if fail first training Escort Boxing still learn never give up fear. Future great boxer Professional Boxing Championship. De Galio happy learns lot every 12 rounds punching. Ready get news. De Galio confront government station: Hi fellow government can we remain seated awhile need now Professional Boxing Competition Edward ready. Government set boxing ring. De Galio: Good luck learn humble more learn more get win. Edward: Never forget. Leader rumble coach Picasso: Guys people watching news live! Let's get ready to rumble. Edward didn't know who enemy doesn't know strength weakness. Although didn't forget coach humble. Don't want know name so won't fear every punch. Enemy name Bretner huge ectomorph muscles big not similar Edward. Edward: Hey good luck! Bretner: I didn't know you goodluck because once I know your move automatically end your dream get win 1 Million Dollars 12 rounds be careful hahaha!!! Edward: no way. Clock ticking 3,2,1 battle begin Edward learns take risk imagine humble target difficult enemy must not fear punch as fails energy active not passive. Pride Bretner punching cornering side ring. After 12 rounds Bretner loss all energies suddenly Edward takes shield armed. Then Edward easily defeats Bretner pride without resting fist punches over over. Edward full energy defeat Bretner powerful punch energy regenerates energy with shield. When rumble coach Picasso know Bretner blocked sat Edward. Picasso: Hey Bretner if you don't get up you will be loser 12 rounds done! I count 3 if don't get up winner Edward Geta not you. Count 3,2,1 already defeat because Bretner sick bruise body. Edward learned lesson never fear anything thinking strategies receive energy from Bretner defeats Bretner fisting shield. After battle Professional Boxing Competition Picasso rewarded winning ceremony Edward received novel price Legendary Great Boxer Of The World. Then Edward get also cheque 1 Million Dollars remarks believing best boxing learns humble. Then goes home give thanks Picasso winning. Picasso: you're welcome see yah next battle Professional Boxing Competition. Edward: sorry but I'm done boxing don't want money again contented what have humble share those also for who will become Legendary Great Boxer. Picasso: understand but want replaced by another than you. Edward: ok so years passed boxers all years remain boxers having humble faith winning competition. Picasso learned Edward journey hardship win test. Picasso goodbye Edward be good watching Knock Out news again. Moral: Be brave no fear worry. Connect place strategy show whenever weak enemy great power must gain restore energy win defeat lack energy. Don't give up winning humble don't selfish pride most power but end lose. If defeat when someone teaches you next game learn win. Be contented right way fulfilling destiny. Learn easy not hard. Because if understand how win you can have luck joy.
+</div>
+<center style="margin:20px"><p class="gold">BEAUTIFUL ARENA: Real Spotlights, Golden Ring, Crowd, Particle Punch Effects, Energy Shield Glow</p><p>WASD Move | Mouse Look | CLICK Punch Upper/Lower | Q Shield Glow Regenerate | SPACE Dodge | R Coach | SHIFT Fast Footwork</p><button onclick="startGame()" style="font-size:28px;padding:18px 50px">ENTER BEAUTIFUL BOXING ARENA - 1M CHEQUE</button></center>
+</div>
+
+<div class="hud" id="hudL">
+<div style="font-size:18px" class="gold">EDWARD GETA - Humble Brave</div>
+<select id="charSel" style="width:100%;background:#000;color:#ffca28;border:1px solid #ffca28;padding:6px"><option>Edward Geta - Humble - Blue Gloves - Agility Master</option><option>Bretner - Ectomorph Giant - Black Gloves - Pride</option></select>
+Lv <span id="lv" class="gold">1</span> SP <span id="sp" class="gold">3</span>
+<div style="margin-top:6px">HEALTH - Body Structures</div><div class="bar"><div id="hp" class="fill" style="width:100%;background:linear-gradient(90deg,#d32f2f,#ff5252);box-shadow:0 0 10px #ff5252"></div></div>
+<div>ENERGY - Active Shield Regenerates!</div><div class="bar"><div id="en" class="fill" style="width:90%;background:linear-gradient(90deg,#ff6f00,#ffca28);box-shadow:0 0 10px #ffca28"></div></div>
+<div>HUMBLE - Brave No Fear</div><div class="bar"><div id="hum" class="fill" style="width:85%;background:linear-gradient(90deg,#2e7d32,#66bb6a);box-shadow:0 0 10px #66bb6a"></div></div>
+<div>LEGENDARY XP - 1M Cheque</div><div class="bar"><div id="xp" class="fill" style="width:0%;background:linear-gradient(90deg,#6a1b9a,#ab47bc)"></div></div>
+<div style="font-size:12px">Round: <span id="round" class="gold">1/12 Escort Training</span><br>Cheque: <span id="cheque" class="gold">0 / 1,000,000$</span><br>Status: <span id="status">Coach De Galio Training Upper Lower Shield</span></div>
+</div>
+
+<div class="hud" id="hudR">
+<div class="gold" id="qMain">MAIN: Escort Boxing -> Professional Championship</div><div id="qDesc" style="font-size:11px;margin-top:6px;line-height:1.4">Escort Boxing training only professional wins. 1M dollars last round. Edward Geta coach De Galio: focus upper cut lower cut shield fist cornering humble no turning back brave. Must master agility never fear hitting own body stable surviving 12 rounds good brave warrior. Ready lucky destiny. Government set ring. Rumble coach Picasso: Let's get ready to rumble 3,2,1. Enemy Bretner huge ectomorph big muscles: once know your move end dream 1M 12 rounds haha! Edward risk humble target difficult not fear punch fails energy active not passive. Bretner pride punching cornering side ring loss all energies. Edward shield armed full energy powerful punch energy regenerates energy with shield defeats Bretner. Picasso count 3,2,1 Bretner sick bruise defeat. Legendary Great Boxer Of The World + Cheque 1M humble contented share next Legendary.</div><hr><div id="qSide" style="font-size:11px"></div>
+</div>
+
+<div class="hud" id="hudB">
+<h3 class="gold">INVENTORY - Beautiful Moves</h3><div id="inv" style="font-size:11px;line-height:1.6">🥊 Upper Cut - Golden Upper - ATK+15 - Focus Concentrate<br>🥊 Lower Cut - Power Lower - ATK+12 - Cornering<br>🛡️ Shield - Energy Regenerates Energy - DEF+20 - Glow Aura - Full Energy Defeat Bretner<br>👊 Fist Of Punches - Legendary Fist - ATK+18 - Brave Warrior<br>⚡ Agility - Dodge Own Body Structures - SPD+12<br>🏆 12 Rounds - Stable Surviving - STA+15 - Professional Competition<br>💰 Cheque 1 Million Dollars - Gold Prized<br>👑 Legendary Great Boxer Of The World Title<br></div>
+<button onclick="doPunch()">E PUNCH Upper/Lower - Active Energy</button><button onclick="doShield()">Q SHIELD GLOW - Regenerate Energy +25</button><button onclick="callCoach()">R COACH De Galio - Humble Brave +15</button><button onclick="this.parentElement.style.display='none'">Close</button>
+</div>
+
+<div class="hud" id="hudMap"><canvas id="map" width="160" height="160" style="border-radius:8px"></canvas><div style="text-align:center;font-size:10px" class="gold">Ring Map - 12 Rounds<br>Escort -> Professional</div></div>
+<div id="centerMsg">KNOCK OUT!</div>
+
+<div id="skillBox" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:760px;background:linear-gradient(135deg,#1a0f00,#2a1a00);border:3px solid #ffca28;border-radius:16px;padding:20px;display:none;z-index:20;box-shadow:0 0 40px rgba(255,202,40,0.6)">
+<h2 class="gold">SKILL TREE - Legendary Great Boxer Path</h2>Points: <span id="sp2" class="gold">3</span><br><br>
+<button onclick="learn('upper')">🥊 UPPER CUT - Focus concentrate arm - ATK+15 Cornering Humble</button><br>
+<button onclick="learn('shield')">🛡️ SHIELD GLOW - Energy regenerates energy - DEF+20 Energy+25 - Beautiful Aura</button><br>
+<button onclick="learn('agility')">⚡ AGILITY MASTER - Never fear own body - SPD+12 Dodge+ - 12 Rounds Stable</button><br>
+<button onclick="learn('brave')">💪 BRAVE WARRIOR - No fear worry - Great punches powerful moves - Humble+15</button><br>
+<button onclick="learn('legend')">👑 LEGENDARY - Cheque 1M - Contented share next Legendary - XP x2 Gold</button><br>
+<div id="slog" style="color:#ffca28;margin-top:10px"></div><button onclick="document.getElementById('skillBox').style.display='none'">Close K</button>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+let scene,camera,renderer,player,keys={},active=false,fp=false;
+let ST={hp:100,max:100,en:90,hum:85,xp:0,lv:1,sp:3,round:1};
+let npcs=[],enemies=[],particles=[],spotlights=[];
+window.startGame=()=>{document.getElementById('story').style.display='none';init();};
+function init(){
+ active=true;
+ scene=new THREE.Scene(); scene.background=new THREE.Color(0x020205); scene.fog=new THREE.Fog(0x020205,20,90);
+ camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,1000);
+ renderer=new THREE.WebGLRenderer({antialias:true}); renderer.setSize(innerWidth,innerHeight); renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+ document.body.appendChild(renderer.domElement);
+ scene.add(new THREE.AmbientLight(0x332211,0.6));
+ let dl=new THREE.DirectionalLight(0xfff4e0,1.2); dl.position.set(15,30,15); dl.castShadow=true; dl.shadow.mapSize.width=2048; dl.shadow.mapSize.height=2048; scene.add(dl);
+ // Spotlights beautiful
+ for(let i=0;i<4;i++){
+   let spot=new THREE.SpotLight(0xffffff,2,60,Math.PI/6,0.3,1); spot.position.set((Math.random()-0.5)*30,18,(Math.random()-0.5)*30); spot.castShadow=true; scene.add(spot); spotlights.push(spot);
+   let beam=new THREE.Mesh(new THREE.CylinderGeometry(0.1,3,18,8,1,true), new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0.08,side:THREE.DoubleSide})); beam.position.copy(spot.position); beam.position.y-=9; scene.add(beam);
+ }
+ // Arena ground
+ let arenaGround=new THREE.Mesh(new THREE.PlaneGeometry(200,200), new THREE.MeshStandardMaterial({color:0x080808,roughness:0.9})); arenaGround.rotation.x=-Math.PI/2; arenaGround.receiveShadow=true; scene.add(arenaGround);
+ // Golden boxing ring base beautiful
+ let ringBase=new THREE.Mesh(new THREE.BoxGeometry(32,1.2,32), new THREE.MeshStandardMaterial({color:0x1a1a1a,metalness:0.3,roughness:0.6})); ringBase.position.set(0,0.6,0); ringBase.receiveShadow=true; ringBase.castShadow=true; scene.add(ringBase);
+ let ringEdge=new THREE.Mesh(new THREE.BoxGeometry(32.5,0.3,32.5), new THREE.MeshStandardMaterial({color:0xd4af37,metalness:0.8,roughness:0.2,emissive:0x332200,emissiveIntensity:0.3})); ringEdge.position.set(0,1.25,0); scene.add(ringEdge);
+ let canvasMat=new THREE.Mesh(new THREE.PlaneGeometry(28,28), new THREE.MeshStandardMaterial({color:0xfafafa,roughness:0.8})); canvasMat.rotation.x=-Math.PI/2; canvasMat.position.set(0,1.21,0); canvasMat.receiveShadow=true; scene.add(canvasMat);
+ // Logo on canvas
+ let logo=new THREE.Mesh(new THREE.RingGeometry(2,3,32), new THREE.MeshStandardMaterial({color:0xffca28,transparent:true,opacity:0.4})); logo.rotation.x=-Math.PI/2; logo.position.set(0,1.22,0); scene.add(logo);
+ // Ropes beautiful with emissive
+ for(let r=0;r<3;r++){
+   let h=1.6+r*0.85;
+   let ropeCol=r==1?0xffffff:0xff1744;
+   let m=new THREE.MeshStandardMaterial({color:ropeCol,emissive:ropeCol,emissiveIntensity:0.3});
+   let rope1=new THREE.Mesh(new THREE.BoxGeometry(29,0.18,0.18), m); rope1.position.set(0,h,14.5); scene.add(rope1);
+   let rope2=rope1.clone(); rope2.position.set(0,h,-14.5); scene.add(rope2);
+   let rope3=new THREE.Mesh(new THREE.BoxGeometry(0.18,0.18,29), m); rope3.position.set(14.5,h,0); scene.add(rope3);
+   let rope4=rope3.clone(); rope4.position.set(-14.5,h,0); scene.add(rope4);
+ }
+ // Posts beautiful gold
+ for(let x of [-14.5,14.5]){ for(let z of [-14.5,14.5]){ let post=new THREE.Mesh(new THREE.CylinderGeometry(0.35,0.4,4.5,12), new THREE.MeshStandardMaterial({color:0x111111,metalness:0.7,roughness:0.3})); post.position.set(x,2.8,z); post.castShadow=true; scene.add(post); let postTop=new THREE.Mesh(new THREE.SphereGeometry(0.45,12,12), new THREE.MeshStandardMaterial({color:0xd4af37,metalness:0.9,roughness:0.1,emissive:0xffca28,emissiveIntensity:0.2})); postTop.position.set(x,5.2,z); scene.add(postTop);} }
+ // Crowd audience beautiful - stadium seats
+ for(let i=0;i<80;i++){
+   let angle=(i/80)*Math.PI*2; let rad=25+Math.random()*25; let cx=Math.cos(angle)*rad, cz=Math.sin(angle)*rad;
+   let h=2+Math.random()*6; let person=new THREE.Mesh(new THREE.CapsuleGeometry(0.25,0.6,4,6), new THREE.MeshStandardMaterial({color:new THREE.Color().setHSL(Math.random(),0.7,0.5)})); person.position.set(cx,h,cz); scene.add(person);
+ }
+ // Player Edward Geta beautiful - blue shorts red gloves
+ let pg=new THREE.Group();
+ let body=new THREE.Mesh(new THREE.CapsuleGeometry(0.55,1.3,6,12), new THREE.MeshStandardMaterial({color:0xf5d6c0})); body.position.y=1.3; body.castShadow=true; pg.add(body);
+ let shorts=new THREE.Mesh(new THREE.BoxGeometry(1.1,0.7,0.7), new THREE.MeshStandardMaterial({color:0x1976d2})); shorts.position.y=0.7; pg.add(shorts);
+ let head=new THREE.Mesh(new THREE.SphereGeometry(0.4,12,12), new THREE.MeshStandardMaterial({color:0xf5d6c0})); head.position.y=2.2; pg.add(head);
+ let gloveL=new THREE.Mesh(new THREE.SphereGeometry(0.38,12,12), new THREE.MeshStandardMaterial({color:0xd32f2f,emissive:0xff1744,emissiveIntensity:0.2})); gloveL.position.set(-0.7,1.1,0.4); gloveL.castShadow=true; pg.add(gloveL);
+ let gloveR=new THREE.Mesh(new THREE.SphereGeometry(0.38,12,12), new THREE.MeshStandardMaterial({color:0xd32f2f,emissive:0xff1744,emissiveIntensity:0.2})); gloveR.position.set(0.7,1.1,0.4); gloveR.castShadow=true; pg.add(gloveR);
+ pg.position.set(0,1.2,9); scene.add(pg); player=pg;
+ // NPCs
+ function addNPC(x,z,name,txt,col){
+   let g=new THREE.Group(); let m=new THREE.Mesh(new THREE.CapsuleGeometry(0.42,1.1,6,10), new THREE.MeshStandardMaterial({color:col})); m.position.y=0.9; g.add(m); g.position.set(x,0,z); g.userData={name:name,txt:txt}; scene.add(g); npcs.push(g);
+ }
+ addNPC(-9,0,7,"Coach De Galio - Gold Badge","Focus concentrate upper cut lower cut shield fist! Be humble no turning back! Master agility! Stable 12 rounds! Brave warrior!",0x4caf50);
+ addNPC(9,0,7,"Rumble Picasso - Rumble Voice","Let's get ready to rumble! 3,2,1! Count 3 winner Edward! Legendary Great Boxer Of The World! Cheque 1M!",0xffca28);
+ // Enemies - Bretner beautiful giant
+ function addEnemy(x,z,name,boss,hp){
+   let g=new THREE.Group(); let scale=boss?1.55:1;
+   let bodyM=new THREE.Mesh(new THREE.CapsuleGeometry(0.7*scale,1.6*scale,6,12), new THREE.MeshStandardMaterial({color:0xe8b896})); bodyM.position.y=1.3*scale; bodyM.castShadow=true; g.add(bodyM);
+   let shortsM=new THREE.Mesh(new THREE.BoxGeometry(1.3*scale,0.8*scale,0.8*scale), new THREE.MeshStandardMaterial({color:0x000000})); shortsM.position.y=0.8*scale; g.add(shortsM);
+   let gloveM=new THREE.Mesh(new THREE.SphereGeometry(0.45*scale,12,12), new THREE.MeshStandardMaterial({color:0x111111})); gloveM.position.set(0.8*scale,1.2*scale,0.5); g.add(gloveM);
+   let headM=new THREE.Mesh(new THREE.SphereGeometry(0.45*scale,12,12), new THREE.MeshStandardMaterial({color:0xe8b896})); headM.position.y=2.5*scale; g.add(headM);
+   g.position.set(x,0,z); g.userData={hp:hp,max:hp,boss:boss,name:name,scale:scale}; scene.add(g); enemies.push(g);
+ }
+ addEnemy(0,0,-7,"Bretner Ectomorph Giant - Pride Over Punching Loss Energies",true,180);
+ addEnemy(11,0,0,"Pride Cornering - Side Ring",false,65);
+ addEnemy(-11,0,0,"Bruise Sick - Blocked Sat",false,60);
+
+ addEventListener('keydown',e=>{
+   keys[e.key.toLowerCase()]=true;
+   let k=e.key.toLowerCase();
+   if(k=='f') fp=!fp;
+   if(k=='q'){let el=document.getElementById('hudB'); el.style.display=el.style.display=='none'?'block':'none';}
+   if(k=='k'){document.getElementById('skillBox').style.display='block';}
+   if(k=='e') doPunch();
+   if(k==' ') {if(player.position.y<1.5) player.userData.vy=0.26;}
+ });
+ addEventListener('keyup',e=>{keys[e.key.toLowerCase()]=false;});
+ addEventListener('mousedown',()=>{if(active) doPunch();});
+ addEventListener('mousemove',e=>{if(active && document.pointerLockElement) player.rotation.y-=e.movementX*0.003;});
+ renderer.domElement.addEventListener('click',()=>{renderer.domElement.requestPointerLock();});
+ player.userData={vy:0,shield:0};
+ animate(); updateUI();
+}
+function createPunchParticles(pos,color){
+ for(let i=0;i<8;i++){
+   let p=new THREE.Mesh(new THREE.SphereGeometry(0.12,6,6), new THREE.MeshStandardMaterial({color:color,emissive:color,emissiveIntensity:0.8,transparent:true,opacity:1}));
+   p.position.copy(pos); p.userData={vel:new THREE.Vector3((Math.random()-0.5)*0.4,Math.random()*0.4, (Math.random()-0.5)*0.4), life:1}; scene.add(p); particles.push(p);
+ }
+}
+function doPunch(){
+ if(ST.en<10){document.getElementById('qDesc').innerText="No energy! Shield Q! Energy regenerates energy! Bretner loss energies pride over punching!"; showCenter("NO ENERGY! Q SHIELD!"); return;}
+ enemies.forEach(en=>{
+   if(en.position.distanceTo(player.position)<4){
+     let dmg=16+ST.hum*0.18; if(en.userData.boss) dmg*=1.25;
+     en.userData.hp-=dmg; ST.en=Math.max(0,ST.en-10);
+     createPunchParticles(en.position.clone().add(new THREE.Vector3(0,1.5,0)), 0xffca28);
+     en.children[0].material.emissive.set(0xffff00); setTimeout(()=>{if(en.children[0]) en.children[0].material.emissive.set(0x000000);},180);
+     en.position.add(new THREE.Vector3().subVectors(en.position,player.position).normalize().multiplyScalar(0.6));
+     if(en.userData.hp<=0){
+       createPunchParticles(en.position.clone().add(new THREE.Vector3(0,1.5,0)), 0xff1744);
+       scene.remove(en); enemies=enemies.filter(e=>e!=en); ST.xp+=en.userData.boss?120:40; ST.round++; showCenter(en.userData.boss?"KNOCK OUT!":"HIT!");
+       if(enemies.length==0) winGame();
+     }
+   }
+ });
+ updateUI();
+}
+function showCenter(txt){let el=document.getElementById('centerMsg'); el.innerText=txt; el.style.display='block'; setTimeout(()=>el.style.display='none',900);}
+window.doPunch=doPunch;
+window.doShield=()=>{
+ ST.en=Math.min(100,ST.en+28); ST.hp=Math.min(ST.max,ST.hp+8); ST.hum=Math.min(100,ST.hum+5);
+ player.userData.shield=1.5; createPunchParticles(player.position.clone().add(new THREE.Vector3(0,1.2,0)), 0x00e5ff);
+ document.getElementById('qDesc').innerText="Shield armed glow! Energy regenerates energy with shield! Full energy powerful punch! Bretner pride over punching loss energies! Restore energy win!";
+ showCenter("SHIELD + ENERGY!");
+ updateUI();
+};
+window.callCoach=()=>{
+ ST.hum=Math.min(100,ST.hum+14); ST.en=Math.min(100,ST.en+10); ST.xp+=20;
+ document.getElementById('qDesc').innerText="Coach De Galio: Focus upper lower shield fist cornering humble no turning back brave! Master agility never fear own body! Stable 12 rounds brave warrior great punches powerful moves! More learn more get win!";
+ showCenter("COACH: HUMBLE BRAVE!");
+ updateUI();
+};
+window.learn=(sk)=>{
+ if(ST.sp<=0) return; ST.sp--; document.getElementById('sp').innerText=ST.sp; document.getElementById('sp2').innerText=ST.sp; let log=document.getElementById('slog');
+ if(sk=='upper'){log.innerHTML+="Upper Cut ATK+15 Cornering<br>";}
+ if(sk=='shield'){ST.en=Math.min(100,ST.en+25); log.innerHTML+="Shield Glow DEF+20 Energy+25 Beautiful Aura<br>";}
+ if(sk=='agility'){log.innerHTML+="Agility SPD+12 Dodge 12 Rounds Stable<br>";}
+ if(sk=='brave'){ST.hum=Math.min(100,ST.hum+12); log.innerHTML+="Brave Warrior Humble+15 No Fear<br>";}
+ if(sk=='legend'){ST.xp+=90; log.innerHTML+="Legendary Cheque 1M XP x2 Gold Contented<br>";}
+ updateUI();
+};
+function updateUI(){
+ document.getElementById('hp').style.width=ST.hp/ST.max*100+"%";
+ document.getElementById('en').style.width=ST.en+"%";
+ document.getElementById('hum').style.width=ST.hum+"%";
+ document.getElementById('xp').style.width=ST.xp+"%";
+ document.getElementById('round').innerText=ST.round+"/12 "+(ST.round<=6?"Escort Boxing Training":"Professional Championship - Gold Ring");
+ document.getElementById('cheque').innerText=ST.round>12?"1,000,000$ WON! Legendary!":"$"+(ST.round*75000)+" / 1,000,000$";
+ let side=document.getElementById('qSide');
+ side.innerHTML="Enemies "+enemies.length+" - Bretner giant ectomorph pride<br>Round "+ST.round+"/12 Escort->Professional must stable surviving<br>Energy "+Math.round(ST.en)+"% Shield Q glow regenerate beautiful<br>Cheque 1M if win last round Legendary Great Boxer title<br>E punch upper lower with particle, Q shield aura, R coach, SPACE dodge jump";
+ if(ST.xp>=100){ST.lv++; ST.xp=0; ST.sp++; ST.max+=14; ST.hp=ST.max; document.getElementById('lv').innerText=ST.lv; document.getElementById('sp').innerText=ST.sp; document.getElementById('sp2').innerText=ST.sp; document.getElementById('slog').innerHTML+="LEVEL UP Lv "+ST.lv+"<br>"; showCenter("LEVEL UP!");}
+}
+function winGame(){
+ document.getElementById('qMain').innerText="KNOCK OUT - EDWARD GETA LEGENDARY GREAT BOXER!";
+ document.getElementById('qDesc').innerHTML="Edward easily defeats Bretner pride without resting fist over over! Full energy powerful punch energy regenerates with shield! Picasso count 3,2,1 Bretner sick bruise defeat! Edward receives Legendary Great Boxer Of The World + Cheque 1M humble contented share for next Legendary! Edward: I'm done boxing don't want money again contented humble share next Legendary! Picasso: understand replaced by another boxers all years remain humble faith winning! Moral: Brave no fear worry strategy weak vs great power gain restore energy win defeat lack energy! Don't give up humble don't selfish pride most power end lose! Learn easy not hard understand how win have luck joy!";
+ setTimeout(()=>{alert("YOU WIN Beautiful Arena!\n\nEdward Geta humble wins 12 rounds!\nBretner ectomorph giant pride loss energies!\nShield glow energy regenerates full energy powerful punch!\nPicasso 3,2,1 count Bretner bruise defeat!\nLegendary Great Boxer + 1M Cheque!\nMoral: Brave restore energy humble contented!");},900);
+}
+function animate(){
+ if(!active) return; requestAnimationFrame(animate);
+ let spd=0.14+ST.hum*0.0012;
+ if(keys['w']) player.translateZ(-spd);
+ if(keys['s']) player.translateZ(spd*0.55);
+ if(keys['a']) player.translateX(-spd*0.75);
+ if(keys['d']) player.translateX(spd*0.75);
+ if(keys['shift']) spd*=1.6;
+ if(ST.en<100) ST.en+=0.1;
+ player.userData.vy-=0.018; player.position.y+=player.userData.vy; if(player.position.y<=1.2){player.position.y=1.2; player.userData.vy=0;}
+ if(player.userData.shield>0){player.userData.shield-=0.02; let aura=player.children[2]; if(aura) aura.material.emissiveIntensity=player.userData.shield;}
+ player.position.x=Math.max(-12.5,Math.min(12.5,player.position.x));
+ player.position.z=Math.max(-12.5,Math.min(12.5,player.position.z));
+ enemies.forEach(en=>{
+   if(en.position.distanceTo(player.position)<16){
+     en.lookAt(player.position);
+     let dir=new THREE.Vector3().subVectors(player.position,en.position).normalize().multiplyScalar(en.userData.boss?0.028:0.019);
+     en.position.add(dir);
+     if(en.position.distanceTo(player.position)<1.7){ST.hp-=0.32; ST.en=Math.max(0,ST.en-0.18);}
+     en.position.x=Math.max(-12.5,Math.min(12.5,en.position.x));
+     en.position.z=Math.max(-12.5,Math.min(12.5,en.position.z));
+   }
+ });
+ particles.forEach((p,i)=>{p.position.add(p.userData.vel); p.userData.life-=0.04; p.material.opacity=p.userData.life; p.scale.setScalar(p.userData.life); if(p.userData.life<=0){scene.remove(p); particles.splice(i,1);}});
+ if(fp){camera.position.copy(player.position).add(new THREE.Vector3(0,1.4,0.3));} else {let off=new THREE.Vector3(0,7,13).applyQuaternion(player.quaternion); camera.position.copy(player.position).add(off); camera.lookAt(player.position.clone().add(new THREE.Vector3(0,1.2,0))); }
+ let ctx=document.getElementById('map').getContext('2d');
+ ctx.clearRect(0,0,160,160); ctx.fillStyle="#050505"; ctx.fillRect(0,0,160,160);
+ ctx.strokeStyle="#d4af37"; ctx.lineWidth=2; ctx.strokeRect(20,20,120,120);
+ ctx.fillStyle="#f5f5f5"; ctx.fillRect(25,25,110,110);
+ ctx.fillStyle="#2196f3"; ctx.fillRect(80+player.position.x*3.5,80+player.position.z*3.5,5,5);
+ enemies.forEach(en=>{ctx.fillStyle=en.userData.boss?"#c62828":"#666"; ctx.fillRect(80+en.position.x*3.5,80+en.position.z*3.5,4,4);});
+ if(ST.hp<=0){alert("Knocked Out! Must careful hitting own body structures! Shield energy regenerates! Stable 12 rounds humble brave!"); location.reload();}
+ renderer.render(scene,camera);
+}
+</script>
+</body>
+</html>
